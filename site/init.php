@@ -10,10 +10,14 @@ session_start();
 
 $company = null;
 
-if (isset($_SESSION['logged']) && isset($_SESSION['companyId'])) {
+if (isLogged()) {
 	$query = 'SELECT * FROM company WHERE id = :id';
 	$statement = $pdo->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 	$statement->execute(array(':id' => $_SESSION['companyId']));
 	$company = $statement->fetch();
+}
+
+function isLogged() {
+    return isset($_SESSION['logged']) && isset($_SESSION['companyId']);
 }
 ?>
