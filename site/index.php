@@ -13,6 +13,7 @@ if(isset($_POST['action'])) {
 			if ($result = $statement->fetch()) {
 				$_SESSION['logged'] = true;
 				$_SESSION['companyId'] = $result['id'];
+				$_SESSION['spreadsheetId'] = $result['spreadsheet_id'];
 			}
 		}
 
@@ -20,6 +21,7 @@ if(isset($_POST['action'])) {
 	} else if ( $_POST['action'] === 'disconnect' ) {
 		unset($_SESSION['logged']);
 		unset($_SESSION['companyId']);
+		unset($_SESSION['spreadsheetIds']);
 		session_destroy();
 	}
 }
@@ -27,18 +29,14 @@ if(isset($_POST['action'])) {
 
 <html>
 	<head>
-		<link rel="stylesheet" href="css/style.css"/>
-        <script src="js/external/jquery.js"></script>
-        <script src="js/external/jquery.datetimepicker.min.js"></script>
-		<script src="js/main.js"></script>
-		<script src="js/md5.min.js"></script>
+        <?php include('includes/header.php'); ?>
 	</head>
 	<body>
 		<h1>Index</h1>
 		<main>
 			<?php include('includes/menu.php'); ?>
 			<section>
-				<?php
+                <?php
 				// If logged, display disconnect button
 				if (isset($_SESSION['logged'])) {
 					if ($_SESSION['logged']) {
