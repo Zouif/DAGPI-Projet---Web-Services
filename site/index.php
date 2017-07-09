@@ -3,64 +3,45 @@ require_once('init.php');
 
 $currentPage = 'index';
 
-if(isset($_POST['action'])) {
-	// Login form sent
-	if ( $_POST['action'] === 'login' ) {
-		if( isset($_POST['login']) && isset($_POST['password']) ) {
-			$query = 'SELECT * FROM company WHERE login = :login AND password = :password';
-			$statement = $pdo->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-			$statement->execute(array(':login' => $_POST['login'], ':password' => $_POST['password']));
-			if ($result = $statement->fetch()) {
-				$_SESSION['logged'] = true;
-				$_SESSION['companyId'] = $result['id'];
-				$_SESSION['spreadsheetId'] = $result['spreadsheet_id'];
-			}
-		}
-
-	// DIsconnect form sent
-	} else if ( $_POST['action'] === 'disconnect' ) {
-		unset($_SESSION['logged']);
-		unset($_SESSION['companyId']);
-		unset($_SESSION['spreadsheetIds']);
-		session_destroy();
-	}
+if( isset($_POST['login']) && isset($_POST['password']) ) {
+    $query = 'SELECT * FROM company WHERE login = :login AND password = :password';
+    $statement = $pdo->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+    $statement->execute(array(':login' => $_POST['login'], ':password' => $_POST['password']));
+    if ($result = $statement->fetch()) {
+        $_SESSION['logged'] = true;
+        $_SESSION['companyId'] = $result['id'];
+        $_SESSION['spreadsheetId'] = $result['spreadsheet_id'];
+    }
 }
 ?>
 
 <html>
 	<head>
         <?php include('includes/header.php'); ?>
-	</head>
+        <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap" async defer></script>
+    </head>
 	<body>
 		<h1>Index</h1>
 		<main>
 			<?php include('includes/menu.php'); ?>
 			<section>
                 <?php
-				// If logged, display disconnect button
-				if (isset($_SESSION['logged'])) {
-					if ($_SESSION['logged']) {
-					?>
-						<form method="POST">
-							<input type="hidden" name="action" value="disconnect"/>
-							<input type="submit" value="Déconnexion">
-						</form>
-					<?php
-					}
-
-				// If not logged, display connect form
-				} else {
+                // If not logged, display connect form
+				if (! isset($_SESSION['logged'])) {
 					?>
 					<form method="POST" onsubmit="encryptPassword();">
 						<p>Identifiant : <input type="text" name="login"/></p>
 						<p>Mot de passe : <input id="rawPassword" type="password"/></p>
 						<input id="password" type="hidden" name="password"/>
-						<input type="hidden" name="action" value="login"/>
 						<input type="submit" value="Envoyer">
 					</form>
 					<?php
-				}
+				} else {
 				?>
+                <div id="map">
+
+                </div>
+                <?php } ?>
 			</section>
 		</main>
 	</body>
