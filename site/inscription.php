@@ -35,22 +35,18 @@ if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !e
     <section>
         <?php
         if ($result) {
-            echo '<h1>Inscription Faite</h1>';
-            ?>
-            <?php
-        }
-        // If logged, display disconnect button
-        if (!isset($_SESSION['logged'])) {
-                ?>
-				<form method="POST">
-					<p>Identifiant : <input type="text" name="login"/></p>
-					<p>Mot de passe : <input type="password" name="password"/></p>
-					<p>Id du Spreadsheet : <input type="text" name="spreadsheet_id"/></p>
-					<input type="submit" value="Envoyer">
-				</form>
-                <?php
-        }
+            echo '<br><h1>Inscription Faite</h1>';
         ?>
+		<?php
+        }
+		echo '<br>'
+		?>
+		<form method="POST">
+			<p>Identifiant : <input type="text" name="login"/></p>
+			<p>Mot de passe : <input type="password" name="password"/></p>
+			<p>Id du Spreadsheet : <input type="text" name="spreadsheet_id"/></p>
+			<input type="submit" value="Envoyer">
+		</form>
     </section>
 </main>
 </body>
