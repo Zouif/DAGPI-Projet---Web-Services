@@ -24,13 +24,10 @@ function onConnected() {
             }
         ]
     }).then(function(response) {
-        console.info('then');
         console.dir(response);
     }, function(response) {
-        console.info('err');
         console.dir(response.result.error.message);
     });
-
 
     var res = gapi.client.sheets.spreadsheets.values.batchUpdate({
         "spreadsheetId" : sheetId,
@@ -49,10 +46,8 @@ function onConnected() {
             }
         ]
     }).then(function(response) {
-        console.info('then');
         console.dir(response);
     }, function(response) {
-        console.info('err');
         console.dir(response.result.error.message);
     });
 
