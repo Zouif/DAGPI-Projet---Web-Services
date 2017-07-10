@@ -17,8 +17,13 @@ if( isset($_POST['login']) && isset($_POST['password']) ) {
 
 <html>
 	<head>
-        <?php include('includes/header.php'); ?>
-        <script src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap" async defer></script>
+        <?php include('includes/header.php');
+        if (isset($_SESSION['logged'])) {
+        ?>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE772SsPKfuXNhvj-OPuoS63idOw2yu00&callback=initMap" async defer></script>
+        <?php
+        }
+        ?>
     </head>
 	<body>
 		<h1>Index</h1>

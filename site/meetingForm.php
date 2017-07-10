@@ -7,15 +7,6 @@ if(isset($_POST['title']) && isset($_POST['date_start']) && isset($_POST['date_e
     $query = 'INSERT INTO company_meeting (id_company, title, date_start, date_end) VALUES (:id_company, :title, :date_start, :date_end)';
     $statement = $pdo->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $result = $statement->execute(array(':id_company' => $_SESSION['companyId'], ':title' => $_POST['title'], ':date_start' => $_POST['date_start'], ':date_end' => $_POST['date_end']));
-//    $result = true;
-//    $requestBody      = new Google_Service_Sheets_BatchUpdateValuesRequest();
-//    $valueInputOption = 'USER_ENTERED';
-//    $requestBody->setValueInputOption('USER_ENTERED');
-//    $requestBody->setData(array(
-//        'range' => 'A1:D1',
-//        'values' => array($_POST['title'], $_POST['date_start'], $_POST['date_end'], $_POST['location'])
-//    ));
-//    $sheetsClient->spreadsheets_values->batchUpdate($sheetId, $requestBody);
 }
 
 ?>
@@ -23,6 +14,7 @@ if(isset($_POST['title']) && isset($_POST['date_start']) && isset($_POST['date_e
 <html>
 <head>
     <?php include('includes/header.php'); ?>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAleRREHV1WqKDgXRUwH5R5K1C909VpYm8&callback=initMap" async defer></script>
 </head>
 <body>
 <h1>Ajout d'un meeting</h1>
@@ -62,10 +54,12 @@ if(isset($_POST['title']) && isset($_POST['date_start']) && isset($_POST['date_e
                     <p>Lieu : <input name="location" type="text" required/></p>
                     <input type="submit" value="Envoyer">
                 </form>
+                <div id="map">
+
+                </div>
                 <?php
             }
 
-            // If not logged, display connect form
         } else {
             ?>
 

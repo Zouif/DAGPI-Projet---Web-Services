@@ -3,6 +3,7 @@ require_once('init.php');
 
 $currentPage = 'inscription';
 $result = false;
+
 if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !empty($_POST['spreadsheet_id']) ) {
 	$querytest = 'SELECT * FROM company WHERE login = :login';
 	$statementtest = $pdo->prepare($querytest, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -29,13 +30,9 @@ if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !e
 <h1>Inscription</h1>
 <main>
     <?php
-    if ($result) {
-        ?>
-		
-        <?php
-    }
     include('includes/menu.php');
     ?>
+    <section>
         <?php
         if ($result) {
             echo '<h1>Inscription Faite</h1>';
@@ -52,11 +49,6 @@ if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !e
 					<input type="submit" value="Envoyer">
 				</form>
                 <?php
-            // If logged, display ?
-        } else {
-            ?>
-
-            <?php
         }
         ?>
     </section>
