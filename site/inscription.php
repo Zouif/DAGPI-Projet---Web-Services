@@ -39,7 +39,7 @@ if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !e
         ?>
 		<?php
         }
-		echo '<br>'
+		echo '<br>';
 		?>
 		<form method="POST">
 			<p>Identifiant : <input type="text" name="login"/></p>
