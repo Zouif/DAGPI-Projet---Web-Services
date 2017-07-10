@@ -14,7 +14,7 @@ if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !e
 		$statement = $pdo->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$result = $statement->execute(array(
 						':login' => $_POST['login'],
-						':password' => md5($_POST['password']),
+						':password' => $_POST['password'],
 						':spreadsheet_id' => $_POST['spreadsheet_id']
 						));
 	}
@@ -41,9 +41,10 @@ if( isset($_POST) && !empty($_POST['login']) && !empty($_POST['password']) && !e
         }
 		echo '<br>';
 		?>
-		<form method="POST">
+		<form method="POST" onsubmit="encryptPassword();">
 			<p>Identifiant : <input type="text" name="login"/></p>
-			<p>Mot de passe : <input type="password" name="password"/></p>
+			<p>Mot de passe : <input id="rawPassword" type="password"/></p>
+			<input id="password" type="hidden" name="password"/>
 			<p>Id du Spreadsheet : <input type="text" name="spreadsheet_id"/></p>
 			<input type="submit" value="Envoyer">
 		</form>
