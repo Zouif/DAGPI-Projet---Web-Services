@@ -9,7 +9,7 @@ if ($currentPage != 'inscription' && !isLogged())
 if ($currentPage != 'meetingForm' && isLogged())
     echo '<a href="meetingForm.php">Ajouter un meeting</a><br>';
 if (isLogged())
-    echo '<a href="https://docs.google.com/spreadsheets/d/' . $_SESSION['spreadsheetId'] . '/edit#">Tableur</a><br>';
+    echo '<a target="_blank" href="https://docs.google.com/spreadsheets/d/' . $_SESSION['spreadsheetId'] . '/edit#">Tableur</a><br>';
 ?>
     <a href="#" id="authorize-button" style="display: none;">Connexion à Google</a>
     <a href="#"  id="signout-button" style="display: none;">Déconnexion de Google</a>
