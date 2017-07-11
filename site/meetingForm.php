@@ -4,9 +4,9 @@ require_once('init.php');
 $currentPage = 'meetingForm';
 $result = false;
 if(isset($_POST['title']) && isset($_POST['date_start']) && isset($_POST['date_end']) && isset($_POST['location'])) {
-    $query = 'INSERT INTO company_meeting (id_company, title, date_start, date_end) VALUES (:id_company, :title, :date_start, :date_end)';
+    $query = 'INSERT INTO company_meeting (id_company, title, date_start, date_end, location) VALUES (:id_company, :title, :date_start, :date_end, :location)';
     $statement = $pdo->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-    $result = $statement->execute(array(':id_company' => $_SESSION['companyId'], ':title' => $_POST['title'], ':date_start' => $_POST['date_start'], ':date_end' => $_POST['date_end']));
+    $result = $statement->execute(array(':id_company' => $_SESSION['companyId'], ':title' => $_POST['title'], ':date_start' => $_POST['date_start'], ':date_end' => $_POST['date_end'], ':location' => $_POST['location']));
 }
 
 ?>
@@ -39,7 +39,7 @@ if(isset($_POST['title']) && isset($_POST['date_start']) && isset($_POST['date_e
             <input name="post_date_start" id="post_date_start" type="hidden" value="<?php echo $_POST['date_start']; ?>"/>
             <input name="post_date_end" id="post_date_end" type="hidden" value="<?php echo $_POST['date_end']; ?>"/>
             <input name="post_location" id="post_location" type="hidden" value="<?php echo $_POST['location']; ?>"/>
-            <input name="post_location" id="post_sheetId" type="hidden" value="<?php echo $_SESSION['spreadsheetId'] ?>"/>
+            <input name="post_sheetId" id="post_sheetId" type="hidden" value="<?php echo $_SESSION['spreadsheetId'] ?>"/>
             <input name="post_location" id="post_meetingId" type="hidden" value="<?php echo $pdo->lastInsertId() ?>"/>
             <?php
         }
