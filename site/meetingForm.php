@@ -54,18 +54,12 @@ if(isset($_POST['title']) && isset($_POST['date_start']) && isset($_POST['date_e
                     <p>Lieu : <input name="location" type="text" required/></p>
                     <input type="submit" value="Envoyer">
                 </form>
-                <div id="map">
-
-                </div>
                 <?php
+				include('includes/map.php');
             }
 
-        } else {
-            ?>
-
-            <?php
         }
-        ?>
+            ?>
     </section>
 </main>
 </body>
