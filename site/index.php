@@ -44,8 +44,17 @@ if( isset($_POST['login']) && isset($_POST['password']) ) {
 				} else {
 				?>
                 <div id="map">
-
                 </div>
+				<br>
+				<div id="destinationForm">
+					<form action="" method="get" name="direction" id="direction">
+						<label>Point de départ :</label>
+						<input type="text" name="origin" id="origin">
+						<label>Destination :</label>
+						<input type="text" name="destination" id="destination">
+						<input type="button" value="Calculer l'itinéraire" onclick="javascript:calculate()">
+					</form>
+				</div>
                 <?php } ?>
 			</section>
 		</main>

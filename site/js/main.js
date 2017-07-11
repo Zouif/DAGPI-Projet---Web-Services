@@ -1,6 +1,11 @@
 var map;
 var geocoder;
 
+var panel;
+var initialize;
+var calculate;
+var direction;
+
 function encryptPassword() {
 	var rawPassword 	= document.getElementById('rawPassword');
 	var password 		= document.getElementById('password');
@@ -13,7 +18,17 @@ function initMap() {
         center: {lat: 44.863, lng: -0.621},
         zoom: 8
     });
+	
+	
+	//Add listener
+
+	
     getMeetings();
+	
+	direction = new google.maps.DirectionsRenderer({
+		map   : map, 
+		panel : panel 
+	});
 }
 
 function displayMeetingsOnMap(meetings) {
@@ -52,6 +67,11 @@ function displayMeetingsOnMap(meetings) {
                 marker.addListener('click', function() {
                     infowindow.open(map, marker);
                 });
+				
+				google.maps.event.addListener(marker, "click", function(event) {
+				  toggleBounce(marker);
+				  showInfo(this.position);
+				});
             }
         });
     })
@@ -77,3 +97,47 @@ window.onload = function() {
 
 };
 
+calculate = function(){
+    origin      = document.getElementById('origin').value; // Le point départ
+    destination = document.getElementById('destination').value; // Le point d'arrivé
+    if(origin && destination){
+        var request = {
+            origin      : origin,
+            destination : destination,
+            travelMode  : google.maps.DirectionsTravelMode.DRIVING // Type de transport
+        }
+        var directionsService = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+        directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+			if(status == google.maps.DirectionsStatus.OK){
+                direction.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
+            }
+        });
+    } //http://code.google.com/intl/fr-FR/apis/maps/documentation/javascript/reference.html#DirectionsRequest
+};
+
+   
+function showInfo(latlng) {
+  geocoder.geocode({
+	'latLng': latlng
+  }, function(results, status) {
+	if (status == google.maps.GeocoderStatus.OK) {
+	  if (results[1]) {
+		// here assign the data to asp lables
+		document.getElementById("destination").value = results[1].formatted_address;
+	  } else {
+		alert('Pas de résultat trouvé');
+	  }
+	} else {
+	  alert('Geocoder en erreur à cause de : ' + status);
+	}
+  });
+}
+
+function toggleBounce(marker) {
+	
+	if (marker.getAnimation() != null) {
+		marker.setAnimation(null);
+	} else {
+		marker.setAnimation(google.maps.Animation.BOUNCE);
+	}
+}
