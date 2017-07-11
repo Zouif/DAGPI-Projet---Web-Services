@@ -19,10 +19,6 @@ function initMap() {
         zoom: 8
     });
 	
-	
-	//Add listener
-
-	
     getMeetings();
 	
 	direction = new google.maps.DirectionsRenderer({
@@ -110,9 +106,10 @@ calculate = function(){
         directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
 			if(status == google.maps.DirectionsStatus.OK){
                 direction.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-            }
+				direction.setPanel(document.getElementById("map-panel"));
+			}
         });
-    } //http://code.google.com/intl/fr-FR/apis/maps/documentation/javascript/reference.html#DirectionsRequest
+    }
 };
 
    

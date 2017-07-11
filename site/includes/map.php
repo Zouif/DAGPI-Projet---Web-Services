@@ -15,3 +15,7 @@
 		<input type="button" value="Calculer l'itinéraire" onclick="javascript:calculate()">
 	</form>
 </div>
+<br>
+
+<div id ="map-panel">
+</div>
