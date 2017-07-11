@@ -1,4 +1,4 @@
-ervices DAGPI
+Projet Web Services DAGPI
 ===================
 
 *Par BONNAN Samuel et BARBE Benjamin*
